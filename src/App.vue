@@ -1,18 +1,20 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Weather/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import Weather from './components/Weather.vue';
 
 @Options({
   components: {
-    HelloWorld,
+    Weather,
   },
 })
-export default class App extends Vue {}
+
+export default class App extends Vue {
+}
 </script>
 
 <style>
