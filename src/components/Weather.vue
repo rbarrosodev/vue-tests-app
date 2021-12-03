@@ -1,5 +1,5 @@
 <template>
-  <div class="hello mt-5">
+  <div class="hello" style="margin-top: 100px;">
     <div class="padding">
         <div class="col-md-3 mx-auto">
             <weather-form @send-form="getWeather"></weather-form>
@@ -41,37 +41,40 @@ interface WeatherData {
 })
 
 export default class Weather extends Vue {
-    weather_info = [];
     city = "";
     date = "";
     temp = "";
     condition = "";
-    icon_url = "";
 
     async mounted(){
-        if(this.city.length == 0){
-            this.city = "No data";
-        }
+        this.loadDefault();
     }
 
-    async loadInfo(){
-        const response = await this.axios.get(`http://api.weatherapi.com/v1/current.json?key=074080b14dd9472186e191951210112&q=Rio de Janeiro&aqi=no`);
-        this.weather_info = response.data;
+
+    async loadDefault(){
+        const response = await this.axios.get(`http://api.weatherapi.com/v1/current.json?key=074080b14dd9472186e191951210112&q=Niteroi&aqi=no`);
+        this.city = response.data.location.name;
+        this.date = response.data.location.localtime;
+        this.temp = response.data.current.temp_c;
+        this.condition = response.data.current.condition.text;
+        document.getElementById('condition-image').setAttribute( 'src', response.data.current.condition.icon );
     }
 
     async getWeather(param: WeatherData){
+        console.log("Todo", param);
+
         const response = await this.axios.get(`http://api.weatherapi.com/v1/current.json?key=074080b14dd9472186e191951210112&q=${param.city}&aqi=no`)
         .catch(function (error) {
             alert("Cidade não encontrada!");
         });
-        this.weather_info = response.data;
-        this.city = this.weather_info.location.name;
-        this.date = this.weather_info.location.localtime;
-        this.temp = this.weather_info.current.temp_c;
-        this.condition = this.weather_info.current.condition.text;
-        this.icon_url = "http://" + this.weather_info.current.condition.icon;
-        document.getElementById('condition-image').src = this.icon_url;
-        console.log(response.status);
+        if(response){
+            console.log(response.data);
+            this.city = response.data.location.name;
+            this.date = response.data.location.localtime;
+            this.temp = response.data.current.temp_c;
+            this.condition = response.data.current.condition.text;
+            document.getElementById('condition-image').setAttribute( 'src', response.data.current.condition.icon );
+        }
     }
 }
 

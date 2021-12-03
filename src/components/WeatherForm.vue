@@ -17,7 +17,7 @@
 
         onSubmit(){
             this.$emit('send-form', this.formInput);
-            this.formInput.title = "";
+            this.formInput.city = "";
         }
     }
 </script>
