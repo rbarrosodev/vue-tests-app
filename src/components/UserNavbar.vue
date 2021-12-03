@@ -13,10 +13,5 @@
         async mounted(){
             this.$emit("testing");
         }
-
-        async loadUser(){
-            const response = await this.axios.get(`http://localhost:3000/users/1.json`);
-            this.msg = response.data.name;
-        }
     }
 </script>
