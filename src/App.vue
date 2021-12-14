@@ -43,6 +43,8 @@
   </nav>
   <Weather/>
   <UserMenu @teste="updateNav"/>
+  <QuizParent/>
+  <News/>
 </template>
 
 <script lang="ts">
@@ -50,12 +52,16 @@ import { Options, Vue } from 'vue-class-component';
 import Weather from './components/Weather.vue';
 import UserMenu from './components/UserMenu.vue';
 import UserNavbar from './components/UserNavbar.vue';
+import QuizParent from './components/QuizParent.vue';
+import News from './components/News.vue';
 
 @Options({
   components: {
     Weather,
     UserMenu,
     UserNavbar,
+    QuizParent,
+    News,
   },
 })
 
